@@ -3,6 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1a6beb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="NewAPP" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
   <title>NewAPP Preview</title>
   <style>
     :root {
@@ -545,6 +551,12 @@
     document.getElementById('productImage').onchange = event => readProductImage(event.target.files?.[0]);
     document.getElementById('cashierNameSearch').oninput = renderCashier;
     document.getElementById('cashierBarcodeSearch').oninput = renderCashier;
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+      });
+    }
 
     render();
 </script>

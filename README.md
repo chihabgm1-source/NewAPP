@@ -40,7 +40,16 @@ Open this file in any browser:
 Preview/index.html
 ```
 
-The preview now behaves like a small local app on the phone:
+The preview now behaves like a small local app on the phone and can be installed on iPhone as a PWA.
+
+### Install on iPhone
+
+1. Open the preview link in Safari.
+2. Tap the Share button.
+3. Choose **Add to Home Screen**.
+4. Open **NewAPP** from the iPhone home screen.
+
+The installed web app stores its data locally on that iPhone browser profile.
 
 - Data is stored locally in the browser with `localStorage`
 - The app starts without fake products, sales, debts, or inventory
@@ -94,6 +103,9 @@ NewAPPTests/
 
 Preview/
   index.html             Browser preview for testing without a Mac
+  manifest.webmanifest   PWA install metadata
+  service-worker.js      Offline app shell cache
+  icons/                 Home screen icons
 
 project.yml              XcodeGen project definition
 ```
