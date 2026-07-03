@@ -1,17 +1,17 @@
 import Foundation
 
 struct HomeViewModel {
-    let storeName = "بقالة السلام"
-    let greeting = "مساء الخير، شهاب"
+    let storeName = "محل جديد"
+    let greeting = "ابدأ بإضافة بيانات محلك"
     let title = "محلك في جيبك"
     let subtitle = "كاشير، مخزون، تقارير، وديون في تطبيق عربي بسيط لأصحاب المحلات الصغيرة."
     let primaryActionTitle = "فاتورة جديدة"
     let secondaryActionTitle = "مسح باركود"
-    let dailySummary = DailySummary(revenue: "1,250 دج", bestSeller: "قهوة عربية", pendingDebts: "3 زبائن")
+    let dailySummary = DailySummary(revenue: "0 دج", bestSeller: "لا يوجد", pendingDebts: "0")
     let metrics = [
-        SummaryMetric(title: "مبيعات اليوم", value: "1,250 دج", footnote: "+12% عن أمس", iconName: "banknote", tintName: "green"),
-        SummaryMetric(title: "الفواتير", value: "18", footnote: "آخر فاتورة قبل 7 د", iconName: "receipt", tintName: "blue"),
-        SummaryMetric(title: "ديون معلقة", value: "3", footnote: "أقرب سداد غداً", iconName: "person.crop.circle.badge.clock", tintName: "purple")
+        SummaryMetric(title: "مبيعات اليوم", value: "0 دج", footnote: "تُحسب بعد أول فاتورة", iconName: "banknote", tintName: "green"),
+        SummaryMetric(title: "الفواتير", value: "0", footnote: "لا توجد فواتير بعد", iconName: "receipt", tintName: "blue"),
+        SummaryMetric(title: "ديون معلقة", value: "0", footnote: "لا توجد ديون بعد", iconName: "person.crop.circle.badge.clock", tintName: "purple")
     ]
     let quickActions = [
         QuickAction(title: "بيع سريع", subtitle: "افتح الكاشير", iconName: "cart.badge.plus", tintName: "blue"),
@@ -30,10 +30,7 @@ struct HomeViewModel {
         LanguageOption(name: "English", code: "EN", description: "واجهة إنجليزية", isSelected: false),
         LanguageOption(name: "Français", code: "FR", description: "واجهة فرنسية", isSelected: false)
     ]
-    let healthItems = [
-        StoreHealthItem(title: "المخزون المنخفض", value: "5 منتجات", status: "يحتاج متابعة", iconName: "exclamationmark.triangle", tintName: "orange"),
-        StoreHealthItem(title: "أفضل منتج", value: "قهوة عربية", status: "الأكثر مبيعاً", iconName: "star", tintName: "green")
-    ]
+    let healthItems: [StoreHealthItem] = []
     let features = [
         AppFeature(
             title: "كاشير سريع",

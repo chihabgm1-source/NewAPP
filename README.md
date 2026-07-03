@@ -21,9 +21,10 @@ The current SwiftUI starter experience presents a polished Arabic dashboard for 
 - Large hero card with quick invoice and barcode actions
 - Daily metric cards for sales, invoices, and pending debts
 - Quick action grid for cashier, products, barcode scanning, and debts
-- Interactive theme color selection with blue, green, purple, and orange options
-- Interactive language selection with Arabic, English, and French options
-- Store health alerts for low stock and best-selling products
+- Local database model for products, sales, debts, and settings
+- Theme color selection with blue, green, purple, and orange options inside Settings
+- Language selection with Arabic, English, and French options inside Settings
+- Store health alerts based on real local data instead of seeded demo values
 - Reusable visual theme tokens in `AppTheme.swift`
 
 ## Try without a Mac
@@ -36,7 +37,14 @@ Open this file in any browser:
 Preview/index.html
 ```
 
-The preview includes the Arabic dashboard, theme color selection, and language selection.
+The preview now behaves like a small local app on the phone:
+
+- Data is stored locally in the browser with `localStorage`
+- The app starts without fake products, sales, debts, or inventory
+- The `|||` menu opens all app sections
+- Settings are placed at the bottom of the menu
+- Theme and language selection live only in Settings
+- Cashier, products, inventory, reports, debts, and settings are interactive
 
 ## Requirements for the native iOS app
 
@@ -69,6 +77,7 @@ Then run the `NewAPP` scheme from Xcode on an iOS simulator.
 
 ```text
 NewAPP/
+  AppLocalDatabase.swift Local persistence models and storage
   AppTheme.swift         Visual design tokens and card styling
   NewAPPApp.swift        App entry point
   ContentView.swift      Main SwiftUI dashboard screen
