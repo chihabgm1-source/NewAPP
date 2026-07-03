@@ -7,7 +7,8 @@ NewAPP is an Arabic-first iOS app for small shop owners who want to run daily sa
 The app helps small retail shops manage core operations in a simple mobile workflow:
 
 - Fast cashier flow for creating invoices in seconds
-- Product management with photos, prices, and barcode scanning
+- Product management with photos, prices, stock, and barcode fields
+- Product photos shown in product lists, inventory, and cashier sale flow
 - Inventory tracking with low-stock alerts
 - Daily, weekly, and monthly sales summaries
 - Customer debt tracking with repayment reminders
@@ -45,6 +46,7 @@ The preview now behaves like a small local app on the phone:
 - Settings are placed at the bottom of the menu
 - Theme and language selection live only in Settings
 - Cashier, products, inventory, reports, debts, and settings are interactive
+- Product images can be selected from the phone and are saved locally with the product
 
 ## Requirements for the native iOS app
 

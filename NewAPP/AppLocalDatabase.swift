@@ -3,6 +3,7 @@ import Foundation
 struct StoreProduct: Codable, Identifiable, Equatable {
     let id: UUID
     var name: String
+    var imageDataURL: String?
     var price: Double
     var stock: Int
     var lowStockThreshold: Int

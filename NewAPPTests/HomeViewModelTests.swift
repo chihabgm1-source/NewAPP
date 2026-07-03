@@ -38,6 +38,7 @@ final class HomeViewModelTests: XCTestCase {
             StoreProduct(
                 id: UUID(),
                 name: "حليب",
+                imageDataURL: "data:image/png;base64,AAAA",
                 price: 120,
                 stock: 6,
                 lowStockThreshold: 2,
