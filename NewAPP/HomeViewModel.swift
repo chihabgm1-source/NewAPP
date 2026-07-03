@@ -19,6 +19,17 @@ struct HomeViewModel {
         QuickAction(title: "مسح باركود", subtitle: "بالكاميرا", iconName: "barcode.viewfinder", tintName: "orange"),
         QuickAction(title: "دين جديد", subtitle: "سجل زبون", iconName: "creditcard", tintName: "purple")
     ]
+    let themeOptions = [
+        ThemeOption(name: "أزرق", description: "ثقة ووضوح", tintName: "blue", isSelected: true),
+        ThemeOption(name: "أخضر", description: "مبيعات ونمو", tintName: "green", isSelected: false),
+        ThemeOption(name: "بنفسجي", description: "لمسة عصرية", tintName: "purple", isSelected: false),
+        ThemeOption(name: "برتقالي", description: "نشاط وسرعة", tintName: "orange", isSelected: false)
+    ]
+    let languageOptions = [
+        LanguageOption(name: "العربية", code: "AR", description: "اللغة الافتراضية", isSelected: true),
+        LanguageOption(name: "English", code: "EN", description: "واجهة إنجليزية", isSelected: false),
+        LanguageOption(name: "Français", code: "FR", description: "واجهة فرنسية", isSelected: false)
+    ]
     let healthItems = [
         StoreHealthItem(title: "المخزون المنخفض", value: "5 منتجات", status: "يحتاج متابعة", iconName: "exclamationmark.triangle", tintName: "orange"),
         StoreHealthItem(title: "أفضل منتج", value: "قهوة عربية", status: "الأكثر مبيعاً", iconName: "star", tintName: "green")
@@ -81,6 +92,22 @@ struct StoreHealthItem: Identifiable {
     let status: String
     let iconName: String
     let tintName: String
+}
+
+struct ThemeOption: Identifiable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let tintName: String
+    let isSelected: Bool
+}
+
+struct LanguageOption: Identifiable {
+    let id = UUID()
+    let name: String
+    let code: String
+    let description: String
+    let isSelected: Bool
 }
 
 struct AppFeature: Identifiable {

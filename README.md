@@ -21,6 +21,8 @@ The current SwiftUI starter experience presents a polished Arabic dashboard for 
 - Large hero card with quick invoice and barcode actions
 - Daily metric cards for sales, invoices, and pending debts
 - Quick action grid for cashier, products, barcode scanning, and debts
+- Interactive theme color selection with blue, green, purple, and orange options
+- Interactive language selection with Arabic, English, and French options
 - Store health alerts for low stock and best-selling products
 - Reusable visual theme tokens in `AppTheme.swift`
 

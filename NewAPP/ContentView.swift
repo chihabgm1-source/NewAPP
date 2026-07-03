@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     let viewModel: HomeViewModel
+    @State private var selectedThemeName = "أزرق"
+    @State private var selectedLanguageCode = "AR"
     private let metricColumns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
@@ -14,6 +16,7 @@ struct ContentView: View {
                         headerSection
                         heroSection
                         metricsSection
+                        preferencesSection
                         quickActionsSection
                         storeHealthSection
                         featuresSection
@@ -123,6 +126,50 @@ struct ContentView: View {
         }
     }
 
+    private var preferencesSection: some View {
+        VStack(alignment: .trailing, spacing: 14) {
+            SectionTitle(title: "إعدادات البرنامج", subtitle: "اختر لون الثيم ولغة الواجهة")
+
+            VStack(spacing: 12) {
+                PreferenceGroupCard(
+                    title: "لون الثيم",
+                    subtitle: "الأزرق محدد كبداية ويمكن تغييره لاحقاً",
+                    options: viewModel.themeOptions.map { option in
+                        PreferenceChip(
+                            title: option.name,
+                            subtitle: option.description,
+                            badge: nil,
+                            tintName: option.tintName,
+                            isSelected: selectedThemeName == option.name
+                        )
+                    },
+                    onSelect: { option in
+                        selectedThemeName = option.title
+                    }
+                )
+
+                PreferenceGroupCard(
+                    title: "لغة البرنامج",
+                    subtitle: "العربية هي اللغة الافتراضية مع تجهيز لغات إضافية",
+                    options: viewModel.languageOptions.map { option in
+                        PreferenceChip(
+                            title: option.name,
+                            subtitle: option.description,
+                            badge: option.code,
+                            tintName: selectedLanguageCode == option.code ? "blue" : "gray",
+                            isSelected: selectedLanguageCode == option.code
+                        )
+                    },
+                    onSelect: { option in
+                        if let code = option.badge {
+                            selectedLanguageCode = code
+                        }
+                    }
+                )
+            }
+        }
+    }
+
     private var quickActionsSection: some View {
         VStack(alignment: .trailing, spacing: 14) {
             SectionTitle(title: "إجراءات سريعة", subtitle: "كل ما يحتاجه صاحب المحل بضغطة")
@@ -216,6 +263,108 @@ private struct MetricCard: View {
     }
 
     private var tintColor: Color { AppTint.color(named: metric.tintName) }
+}
+
+private struct PreferenceChip: Identifiable {
+    let id = UUID()
+    let title: String
+    let subtitle: String
+    let badge: String?
+    let tintName: String
+    let isSelected: Bool
+}
+
+private struct PreferenceGroupCard: View {
+    let title: String
+    let subtitle: String
+    let options: [PreferenceChip]
+    let onSelect: (PreferenceChip) -> Void
+
+    var body: some View {
+        VStack(alignment: .trailing, spacing: 14) {
+            HStack(alignment: .top) {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.headline)
+                    .foregroundStyle(AppTheme.success)
+                    .opacity(options.contains { $0.isSelected } ? 1 : 0)
+                    .accessibilityHidden(true)
+
+                Spacer()
+
+                VStack(alignment: .trailing, spacing: 4) {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundStyle(AppTheme.ink)
+
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundStyle(AppTheme.muted)
+                        .multilineTextAlignment(.trailing)
+                }
+            }
+
+            VStack(spacing: 10) {
+                ForEach(options) { option in
+                    PreferenceOptionRow(option: option, onSelect: onSelect)
+                }
+            }
+        }
+        .padding(16)
+        .appCard()
+    }
+}
+
+private struct PreferenceOptionRow: View {
+    let option: PreferenceChip
+    let onSelect: (PreferenceChip) -> Void
+
+    var body: some View {
+        Button {
+            onSelect(option)
+        } label: {
+            HStack(spacing: 12) {
+                if let badge = option.badge {
+                    Text(badge)
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(option.isSelected ? .white : tintColor)
+                        .frame(width: 42, height: 32)
+                        .background(option.isSelected ? tintColor : tintColor.opacity(0.10), in: Capsule())
+                } else {
+                    Circle()
+                        .fill(tintColor)
+                        .frame(width: 30, height: 30)
+                        .overlay {
+                            if option.isSelected {
+                                Image(systemName: "checkmark")
+                                    .font(.caption.weight(.bold))
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                }
+
+                Spacer()
+
+                VStack(alignment: .trailing, spacing: 3) {
+                    Text(option.title)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(AppTheme.ink)
+
+                    Text(option.subtitle)
+                        .font(.caption)
+                        .foregroundStyle(AppTheme.muted)
+                }
+            }
+            .padding(12)
+            .background(option.isSelected ? tintColor.opacity(0.10) : AppTheme.background, in: RoundedRectangle(cornerRadius: AppTheme.smallRadius, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: AppTheme.smallRadius, style: .continuous)
+                    .stroke(option.isSelected ? tintColor.opacity(0.45) : .clear, lineWidth: 1)
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var tintColor: Color { AppTint.color(named: option.tintName) }
 }
 
 private struct QuickActionCard: View {
@@ -327,6 +476,8 @@ private enum AppTint {
             return AppTheme.purple
         case "red":
             return AppTheme.danger
+        case "gray":
+            return AppTheme.muted
         default:
             return AppTheme.primary
         }
