@@ -7,8 +7,10 @@ NewAPP is an Arabic-first iOS app for small shop owners who want to run daily sa
 The app helps small retail shops manage core operations in a simple mobile workflow:
 
 - Fast cashier flow for creating invoices in seconds
-- Product management with photos, prices, stock, and barcode fields
+- Compact cashier product grid with name search, barcode search, and product filters
+- Product management with photos, purchase price, sale price, stock, and barcode fields
 - Product photos shown in product lists, inventory, and cashier sale flow
+- Profit reporting calculated from sale price minus purchase price
 - Inventory tracking with low-stock alerts
 - Daily, weekly, and monthly sales summaries
 - Customer debt tracking with repayment reminders
@@ -19,11 +21,11 @@ The current SwiftUI starter experience presents a polished Arabic dashboard for 
 
 - Right-to-left Arabic interface
 - Warm shop greeting and store identity header
-- Large hero card with quick invoice and barcode actions
+- Large hero card with quick invoice and product actions
 - Daily metric cards for sales, invoices, and pending debts
-- Quick action grid for cashier, products, barcode scanning, and debts
+- Quick action grid for cashier, products, inventory, reports, and debts
 - Local database model for products, sales, debts, and settings
-- Theme color selection with blue, green, purple, and orange options inside Settings
+- Light and dark appearance selection inside Settings
 - Language selection with Arabic, English, and French options inside Settings
 - Store health alerts based on real local data instead of seeded demo values
 - Reusable visual theme tokens in `AppTheme.swift`
@@ -47,6 +49,7 @@ The preview now behaves like a small local app on the phone:
 - Theme and language selection live only in Settings
 - Cashier, products, inventory, reports, debts, and settings are interactive
 - Product images can be selected from the phone and are saved locally with the product
+- Cashier products appear as compact cards below the invoice for easier scrolling
 
 ## Requirements for the native iOS app
 

@@ -4,6 +4,7 @@ struct StoreProduct: Codable, Identifiable, Equatable {
     let id: UUID
     var name: String
     var imageDataURL: String?
+    var purchasePrice: Double
     var price: Double
     var stock: Int
     var lowStockThreshold: Int
@@ -22,6 +23,7 @@ struct SaleItem: Codable, Equatable {
     var productName: String
     var quantity: Int
     var unitPrice: Double
+    var purchasePrice: Double
 }
 
 struct CustomerDebt: Codable, Identifiable, Equatable {
@@ -33,7 +35,7 @@ struct CustomerDebt: Codable, Identifiable, Equatable {
 }
 
 struct AppSettings: Codable, Equatable {
-    var themeName: String = "blue"
+    var themeMode: String = "light"
     var languageCode: String = "ar"
 }
 

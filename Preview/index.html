@@ -20,6 +20,17 @@
       --shadow: 0 18px 40px rgba(18, 31, 53, 0.10);
     }
 
+    [data-theme-mode="dark"] {
+      --primary: #60a5fa;
+      --primary-dark: #1d4ed8;
+      --background: #0f172a;
+      --card: #172033;
+      --ink: #f8fafc;
+      --muted: #a7b0c0;
+      --border: #334155;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -105,9 +116,9 @@
 
     .row { display: flex; align-items: center; gap: 12px; }
     .row.wrap { flex-wrap: wrap; }
-    .icon { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: rgba(26,107,235,.10); color: var(--primary); flex: 0 0 auto; }
+    .icon { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: rgba(26,107,235,.10); color: var(--primary); flex: 0 0 auto; font-size: 11px; font-weight: 900; letter-spacing: .3px; }
     .product-photo { width: 54px; height: 54px; border-radius: 16px; object-fit: cover; flex: 0 0 auto; background: #e2e8f0; border: 1px solid var(--border); }
-    .product-photo.placeholder { display: grid; place-items: center; color: var(--primary); background: rgba(26,107,235,.10); font-size: 22px; }
+    .product-photo.placeholder { display: grid; place-items: center; color: var(--primary); background: rgba(26,107,235,.10); font-size: 11px; font-weight: 900; }
     .image-preview { width: 92px; height: 92px; border-radius: 22px; object-fit: cover; border: 1px solid var(--border); background: #f8fafc; }
     .image-preview-wrap { display: flex; align-items: center; gap: 12px; }
     .item-main { flex: 1; min-width: 0; }
@@ -123,6 +134,16 @@
     .tab { border: 1px solid var(--border); background: var(--card); border-radius: 15px; padding: 10px 8px; color: var(--muted); font-weight: 800; }
     .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
     .cart-line { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+    .cashier-tools { position: sticky; top: 0; z-index: 4; display: grid; gap: 10px; margin-bottom: 12px; padding-top: 2px; background: var(--background); }
+    .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-bottom: 20px; }
+    .sale-product { border: 1px solid var(--border); background: var(--card); border-radius: 20px; padding: 10px; box-shadow: 0 10px 24px rgba(18, 31, 53, 0.08); text-align: start; color: var(--ink); min-height: 178px; display: flex; flex-direction: column; gap: 8px; }
+    .sale-product .product-photo { width: 100%; height: 86px; border-radius: 16px; }
+    .sale-product strong { font-size: 14px; line-height: 1.35; }
+    .sale-product span { color: var(--muted); font-size: 12px; }
+    .sale-product.disabled { opacity: .55; pointer-events: none; }
+    .filter-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .filter-chip { border: 1px solid var(--border); background: var(--card); border-radius: 14px; padding: 9px 6px; color: var(--muted); font-size: 12px; font-weight: 800; }
+    .filter-chip.active { background: var(--primary); border-color: var(--primary); color: white; }
 
     .option { width: 100%; display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 18px; padding: 12px; background: #f8fafc; text-align: start; color: var(--ink); }
     .option.selected { border-color: var(--primary); background: rgba(26,107,235,.10); }
@@ -145,7 +166,7 @@
       <div id="drawerBackdrop" class="drawer-backdrop"></div>
       <aside id="drawer" class="drawer" aria-label="القائمة">
         <div class="drawer-head">
-          <button id="closeDrawer" class="round-button" aria-label="إغلاق">×</button>
+          <button id="closeDrawer" class="round-button" aria-label="إغلاق">X</button>
           <div class="spacer"></div>
           <div>
             <div class="title" data-i18n="appName">NewAPP</div>
@@ -154,7 +175,7 @@
         </div>
         <nav id="navList" class="nav-list"></nav>
         <div class="drawer-bottom">
-          <button class="nav-item" data-route="settings">⚙️ <span data-i18n="settings">الإعدادات</span></button>
+          <button class="nav-item" data-route="settings">SET <span data-i18n="settings">الإعدادات</span></button>
         </div>
       </aside>
 
@@ -174,8 +195,8 @@
             <h1 data-i18n="headline">محلك في جيبك</h1>
             <p data-i18n="subtitle">أضف بيانات محلك بنفسك، وكل الأرقام تُحسب من قاعدة البيانات المحلية.</p>
             <div class="hero-actions">
-              <button class="button secondary" data-route="products" data-i18n="addProduct">＋ منتج جديد</button>
-              <button class="button" data-route="cashier" data-i18n="newInvoice">🧾 فاتورة جديدة</button>
+              <button class="button secondary" data-route="products" data-i18n="addProduct">+ منتج جديد</button>
+              <button class="button" data-route="cashier" data-i18n="newInvoice">فاتورة جديدة</button>
             </div>
           </div>
           <div class="section-title"><h2 data-i18n="summary">ملخص اليوم</h2><p data-i18n="summarySub">يظهر بعد إضافة مبيعات وديون ومنتجات.</p></div>
@@ -186,9 +207,7 @@
         </section>
 
         <section id="cashier" class="section">
-          <div class="section-title"><h2 data-i18n="cashier">الكاشير</h2><p data-i18n="cashierSub">اختر المنتجات المتوفرة ثم أنشئ فاتورة.</p></div>
-          <div class="list" id="cashierProducts"></div>
-          <div style="height:14px"></div>
+          <div class="section-title"><h2 data-i18n="cashier">الكاشير</h2><p data-i18n="cashierSub">الفاتورة بالأعلى والمنتجات تحتها لتبقى القائمة قابلة للتمرير.</p></div>
           <div class="card">
             <div class="row"><strong data-i18n="cart">السلة</strong><div class="spacer"></div><span class="pill" id="cartTotal">0 دج</span></div>
             <div style="height:10px"></div>
@@ -196,6 +215,14 @@
             <div style="height:12px"></div>
             <button class="button full success" id="completeSale" data-i18n="completeSale">تسجيل الفاتورة</button>
           </div>
+          <div class="cashier-tools">
+            <div class="grid">
+              <input id="cashierNameSearch" class="input" data-i18n-placeholder="searchByName" placeholder="بحث باسم المنتج" />
+              <input id="cashierBarcodeSearch" class="input" data-i18n-placeholder="searchByBarcode" placeholder="بحث بالباركود" />
+            </div>
+            <div id="cashierFilters" class="filter-row"></div>
+          </div>
+          <div class="product-grid" id="cashierProducts"></div>
         </section>
 
         <section id="products" class="section">
@@ -210,13 +237,14 @@
               </div>
             </div>
             <div class="grid">
-              <div class="field"><label data-i18n="price">السعر</label><input id="productPrice" class="input" type="number" min="0" inputmode="decimal" placeholder="0" /></div>
-              <div class="field"><label data-i18n="stock">الكمية</label><input id="productStock" class="input" type="number" min="0" inputmode="numeric" placeholder="0" /></div>
+              <div class="field"><label data-i18n="purchasePrice">سعر الشراء</label><input id="productPurchasePrice" class="input" type="number" min="0" inputmode="decimal" placeholder="0" /></div>
+              <div class="field"><label data-i18n="price">سعر البيع</label><input id="productPrice" class="input" type="number" min="0" inputmode="decimal" placeholder="0" /></div>
             </div>
             <div class="grid">
+              <div class="field"><label data-i18n="stock">الكمية</label><input id="productStock" class="input" type="number" min="0" inputmode="numeric" placeholder="0" /></div>
               <div class="field"><label data-i18n="lowLimit">تنبيه عند</label><input id="productLow" class="input" type="number" min="0" inputmode="numeric" value="3" /></div>
-              <div class="field"><label data-i18n="barcodeOptional">باركود اختياري</label><input id="productBarcode" class="input" placeholder="امسحه أو اكتبه" /></div>
             </div>
+            <div class="field"><label data-i18n="barcodeOptional">باركود اختياري</label><input id="productBarcode" class="input" placeholder="امسحه أو اكتبه" /></div>
             <button class="button full" id="addProduct" data-i18n="saveProduct">حفظ المنتج</button>
           </div>
           <div style="height:14px"></div>
@@ -273,12 +301,10 @@
 
   <script>
     const DB_KEY = 'newapp.local.database.v2';
-    const initialDb = { products: [], sales: [], debts: [], settings: { theme: 'blue', language: 'ar' } };
-    const themes = {
-      blue: { label: 'أزرق', description: 'ثقة ووضوح', color: '#1a6beb', dark: '#0d2e6b' },
-      green: { label: 'أخضر', description: 'مبيعات ونمو', color: '#0d9457', dark: '#064e3b' },
-      purple: { label: 'بنفسجي', description: 'لمسة عصرية', color: '#7a4fea', dark: '#3b237a' },
-      orange: { label: 'برتقالي', description: 'نشاط وسرعة', color: '#f28c24', dark: '#7c3f08' }
+    const initialDb = { products: [], sales: [], debts: [], settings: { themeMode: 'light', language: 'ar' } };
+    const themeModes = {
+      light: { label: 'فاتح', description: 'واجهة واضحة للنهار', mode: 'light' },
+      dark: { label: 'داكن', description: 'واجهة مريحة في الليل', mode: 'dark' }
     };
     const languages = {
       ar: { label: 'العربية', code: 'AR', description: 'اللغة الافتراضية' },
@@ -287,25 +313,30 @@
     };
     const t = {
       ar: {
-        appName:'NewAPP', localDb:'قاعدة بيانات محلية على جهازك', headline:'محلك في جيبك', subtitle:'أضف بيانات محلك بنفسك، وكل الأرقام تُحسب من قاعدة البيانات المحلية.', addProduct:'＋ منتج جديد', newInvoice:'🧾 فاتورة جديدة', summary:'ملخص اليوم', summarySub:'يظهر بعد إضافة مبيعات وديون ومنتجات.', quickActions:'إجراءات سريعة', quickSub:'كل قسم يعمل حسب فائدته.', cashier:'الكاشير', cashierSub:'اختر المنتجات المتوفرة ثم أنشئ فاتورة.', cart:'السلة', completeSale:'تسجيل الفاتورة', products:'المنتجات', productsSub:'أضف المنتجات بدون بيانات وهمية.', productName:'اسم المنتج', price:'السعر', stock:'الكمية', lowLimit:'تنبيه عند', barcodeOptional:'باركود اختياري', productImage:'صورة المنتج', saveProduct:'حفظ المنتج', inventory:'المخزون', inventorySub:'راقب الكميات وعدلها عند وصول بضاعة أو تلفها.', reports:'التقارير', reportsSub:'الأرقام هنا محسوبة من الفواتير المسجلة.', topProducts:'أكثر المنتجات مبيعاً', debts:'الديون', debtsSub:'سجل ديون الزبائن ومواعيد السداد.', customerName:'اسم الزبون', amount:'المبلغ', dueDate:'تاريخ السداد', saveDebt:'حفظ الدين', settings:'الإعدادات', settingsSub:'اللغة والثيم موجودة هنا فقط، أسفل القائمة.', themeColor:'لون الثيم', appLanguage:'لغة البرنامج', database:'قاعدة البيانات', databaseSub:'البيانات محفوظة محلياً في متصفح هذا الهاتف.', clearDatabase:'مسح كل البيانات', dashboard:'الرئيسية', noDemo:'بدون بيانات تجريبية', todaySales:'مبيعات اليوم', invoices:'الفواتير', pendingDebts:'ديون معلقة', productCount:'عدد المنتجات', open:'فتح', emptyProducts:'لا توجد منتجات بعد. أضف منتجاً من قسم المنتجات.', emptyCart:'السلة فارغة.', emptyDebts:'لا توجد ديون مسجلة.', emptyReports:'لا توجد مبيعات بعد.', emptyInventory:'لا توجد منتجات لمراقبة المخزون.', lowStock:'مخزون منخفض', available:'متوفر', outOfStock:'نفد المخزون', addToCart:'أضف للسلة', increase:'زيادة', decrease:'نقصان', delete:'حذف', markPaid:'تم السداد', paid:'مسدد', unpaid:'غير مسدد', total:'المجموع', quantity:'الكمية', bestSeller:'الأكثر مبيعاً', saved:'تم الحفظ', saleSaved:'تم تسجيل الفاتورة', dbCleared:'تم مسح قاعدة البيانات'
+        appName:'NewAPP', localDb:'قاعدة بيانات محلية على جهازك', headline:'محلك في جيبك', subtitle:'أضف بيانات محلك بنفسك، وكل الأرقام تُحسب من قاعدة البيانات المحلية.', addProduct:'+ منتج جديد', newInvoice:'فاتورة جديدة', summary:'ملخص اليوم', summarySub:'يظهر بعد إضافة مبيعات وديون ومنتجات.', quickActions:'إجراءات سريعة', quickSub:'كل قسم يعمل حسب فائدته.', cashier:'الكاشير', cashierSub:'الفاتورة بالأعلى والمنتجات تحتها لتبقى القائمة قابلة للتمرير.', cart:'الفاتورة', completeSale:'تسجيل الفاتورة', products:'المنتجات', productsSub:'أضف المنتجات بدون بيانات وهمية.', productName:'اسم المنتج', purchasePrice:'سعر الشراء', price:'سعر البيع', stock:'الكمية', lowLimit:'تنبيه عند', barcodeOptional:'باركود اختياري', productImage:'صورة المنتج', saveProduct:'حفظ المنتج', inventory:'المخزون', inventorySub:'راقب الكميات وعدلها عند وصول بضاعة أو تلفها.', reports:'التقارير', reportsSub:'الأرقام هنا محسوبة من الفواتير المسجلة.', topProducts:'أكثر المنتجات مبيعاً', debts:'الديون', debtsSub:'سجل ديون الزبائن ومواعيد السداد.', customerName:'اسم الزبون', amount:'المبلغ', dueDate:'تاريخ السداد', saveDebt:'حفظ الدين', settings:'الإعدادات', settingsSub:'اللغة والثيم موجودة هنا فقط، أسفل القائمة.', themeColor:'المظهر', appLanguage:'لغة البرنامج', database:'قاعدة البيانات', databaseSub:'البيانات محفوظة محلياً في متصفح هذا الهاتف.', clearDatabase:'مسح كل البيانات', dashboard:'الرئيسية', noDemo:'بدون بيانات تجريبية', todaySales:'مبيعات اليوم', invoices:'الفواتير', pendingDebts:'ديون معلقة', productCount:'عدد المنتجات', open:'فتح', emptyProducts:'لا توجد منتجات بعد. أضف منتجاً من قسم المنتجات.', emptyCart:'الفاتورة فارغة.', emptyDebts:'لا توجد ديون مسجلة.', emptyReports:'لا توجد مبيعات بعد.', emptyInventory:'لا توجد منتجات لمراقبة المخزون.', lowStock:'مخزون منخفض', available:'متوفر', outOfStock:'نفد المخزون', addToCart:'أضف', increase:'زيادة', decrease:'نقصان', delete:'حذف', markPaid:'تم السداد', paid:'مسدد', unpaid:'غير مسدد', total:'المجموع', quantity:'الكمية', bestSeller:'الأكثر مبيعاً', profit:'الفائدة', cost:'التكلفة', margin:'هامش الربح', saved:'تم الحفظ', saleSaved:'تم تسجيل الفاتورة', dbCleared:'تم مسح قاعدة البيانات', searchByName:'بحث باسم المنتج', searchByBarcode:'بحث بالباركود', filterAll:'الكل', filterAvailable:'متوفر', filterLow:'قليل', filterOut:'نافد', noSearchResults:'لا توجد منتجات مطابقة.'
       },
       en: {
-        appName:'NewAPP', localDb:'Local database on your device', headline:'Your shop in your pocket', subtitle:'Add your own shop data. All numbers are calculated from local storage.', addProduct:'＋ New product', newInvoice:'🧾 New invoice', summary:'Today summary', summarySub:'Appears after adding products, sales, and debts.', quickActions:'Quick actions', quickSub:'Every section works by purpose.', cashier:'Cashier', cashierSub:'Choose available products and create an invoice.', cart:'Cart', completeSale:'Save invoice', products:'Products', productsSub:'Add products without demo data.', productName:'Product name', price:'Price', stock:'Stock', lowLimit:'Alert at', barcodeOptional:'Optional barcode', productImage:'Product photo', saveProduct:'Save product', inventory:'Inventory', inventorySub:'Watch quantities and adjust incoming or damaged goods.', reports:'Reports', reportsSub:'Numbers are calculated from saved invoices.', topProducts:'Top selling products', debts:'Debts', debtsSub:'Track customer debts and due dates.', customerName:'Customer name', amount:'Amount', dueDate:'Due date', saveDebt:'Save debt', settings:'Settings', settingsSub:'Language and theme live here at the bottom.', themeColor:'Theme color', appLanguage:'App language', database:'Database', databaseSub:'Data is stored locally in this phone browser.', clearDatabase:'Clear all data', dashboard:'Home', noDemo:'No demo data', todaySales:'Today sales', invoices:'Invoices', pendingDebts:'Pending debts', productCount:'Products', open:'Open', emptyProducts:'No products yet. Add one from Products.', emptyCart:'Cart is empty.', emptyDebts:'No debts recorded.', emptyReports:'No sales yet.', emptyInventory:'No products to track.', lowStock:'Low stock', available:'Available', outOfStock:'Out of stock', addToCart:'Add to cart', increase:'Increase', decrease:'Decrease', delete:'Delete', markPaid:'Mark paid', paid:'Paid', unpaid:'Unpaid', total:'Total', quantity:'Qty', bestSeller:'Best seller', saved:'Saved', saleSaved:'Invoice saved', dbCleared:'Database cleared'
+        appName:'NewAPP', localDb:'Local database on your device', headline:'Your shop in your pocket', subtitle:'Add your own shop data. All numbers are calculated from local storage.', addProduct:'+ New product', newInvoice:'New invoice', summary:'Today summary', summarySub:'Appears after adding products, sales, and debts.', quickActions:'Quick actions', quickSub:'Every section works by purpose.', cashier:'Cashier', cashierSub:'Invoice stays on top. Products are compact below for scrolling.', cart:'Invoice', completeSale:'Save invoice', products:'Products', productsSub:'Add products without demo data.', productName:'Product name', purchasePrice:'Purchase price', price:'Sale price', stock:'Stock', lowLimit:'Alert at', barcodeOptional:'Optional barcode', productImage:'Product photo', saveProduct:'Save product', inventory:'Inventory', inventorySub:'Watch quantities and adjust incoming or damaged goods.', reports:'Reports', reportsSub:'Numbers are calculated from saved invoices.', topProducts:'Top selling products', debts:'Debts', debtsSub:'Track customer debts and due dates.', customerName:'Customer name', amount:'Amount', dueDate:'Due date', saveDebt:'Save debt', settings:'Settings', settingsSub:'Language and theme live here at the bottom.', themeColor:'Appearance', appLanguage:'App language', database:'Database', databaseSub:'Data is stored locally in this phone browser.', clearDatabase:'Clear all data', dashboard:'Home', noDemo:'No demo data', todaySales:'Today sales', invoices:'Invoices', pendingDebts:'Pending debts', productCount:'Products', open:'Open', emptyProducts:'No products yet. Add one from Products.', emptyCart:'Invoice is empty.', emptyDebts:'No debts recorded.', emptyReports:'No sales yet.', emptyInventory:'No products to track.', lowStock:'Low stock', available:'Available', outOfStock:'Out of stock', addToCart:'Add', increase:'Increase', decrease:'Decrease', delete:'Delete', markPaid:'Mark paid', paid:'Paid', unpaid:'Unpaid', total:'Total', quantity:'Qty', bestSeller:'Best seller', profit:'Profit', cost:'Cost', margin:'Margin', saved:'Saved', saleSaved:'Invoice saved', dbCleared:'Database cleared', searchByName:'Search by name', searchByBarcode:'Search by barcode', filterAll:'All', filterAvailable:'Available', filterLow:'Low', filterOut:'Out', noSearchResults:'No matching products.'
       },
       fr: {
-        appName:'NewAPP', localDb:'Base locale sur votre appareil', headline:'Votre boutique dans votre poche', subtitle:'Ajoutez vos propres données. Tous les chiffres viennent du stockage local.', addProduct:'＋ Nouveau produit', newInvoice:'🧾 Nouvelle facture', summary:'Résumé du jour', summarySub:'Apparaît après ajout de produits, ventes et dettes.', quickActions:'Actions rapides', quickSub:'Chaque section fonctionne selon son rôle.', cashier:'Caisse', cashierSub:'Choisissez les produits disponibles et créez une facture.', cart:'Panier', completeSale:'Enregistrer facture', products:'Produits', productsSub:'Ajoutez des produits sans données démo.', productName:'Nom du produit', price:'Prix', stock:'Stock', lowLimit:'Alerte à', barcodeOptional:'Code-barres optionnel', productImage:'Photo du produit', saveProduct:'Enregistrer produit', inventory:'Stock', inventorySub:'Surveillez les quantités et ajustez le stock.', reports:'Rapports', reportsSub:'Les chiffres viennent des factures enregistrées.', topProducts:'Meilleures ventes', debts:'Dettes', debtsSub:'Suivez les dettes clients et échéances.', customerName:'Client', amount:'Montant', dueDate:'Date de paiement', saveDebt:'Enregistrer dette', settings:'Réglages', settingsSub:'Langue et thème sont ici en bas.', themeColor:'Couleur du thème', appLanguage:'Langue', database:'Base de données', databaseSub:'Les données sont stockées localement dans ce navigateur.', clearDatabase:'Tout effacer', dashboard:'Accueil', noDemo:'Aucune donnée démo', todaySales:'Ventes du jour', invoices:'Factures', pendingDebts:'Dettes en attente', productCount:'Produits', open:'Ouvrir', emptyProducts:'Aucun produit. Ajoutez-en depuis Produits.', emptyCart:'Panier vide.', emptyDebts:'Aucune dette.', emptyReports:'Aucune vente.', emptyInventory:'Aucun produit à suivre.', lowStock:'Stock faible', available:'Disponible', outOfStock:'Rupture', addToCart:'Ajouter', increase:'Augmenter', decrease:'Diminuer', delete:'Supprimer', markPaid:'Payé', paid:'Payé', unpaid:'Non payé', total:'Total', quantity:'Qté', bestSeller:'Meilleure vente', saved:'Enregistré', saleSaved:'Facture enregistrée', dbCleared:'Base effacée'
+        appName:'NewAPP', localDb:'Base locale sur votre appareil', headline:'Votre boutique dans votre poche', subtitle:'Ajoutez vos propres données. Tous les chiffres viennent du stockage local.', addProduct:'+ Nouveau produit', newInvoice:'Nouvelle facture', summary:'Résumé du jour', summarySub:'Apparaît après ajout de produits, ventes et dettes.', quickActions:'Actions rapides', quickSub:'Chaque section fonctionne selon son rôle.', cashier:'Caisse', cashierSub:'La facture reste en haut. Les produits compacts défilent dessous.', cart:'Facture', completeSale:'Enregistrer facture', products:'Produits', productsSub:'Ajoutez des produits sans données démo.', productName:'Nom du produit', purchasePrice:'Prix d’achat', price:'Prix de vente', stock:'Stock', lowLimit:'Alerte à', barcodeOptional:'Code-barres optionnel', productImage:'Photo du produit', saveProduct:'Enregistrer produit', inventory:'Stock', inventorySub:'Surveillez les quantités et ajustez le stock.', reports:'Rapports', reportsSub:'Les chiffres viennent des factures enregistrées.', topProducts:'Meilleures ventes', debts:'Dettes', debtsSub:'Suivez les dettes clients et échéances.', customerName:'Client', amount:'Montant', dueDate:'Date de paiement', saveDebt:'Enregistrer dette', settings:'Réglages', settingsSub:'Langue et thème sont ici en bas.', themeColor:'Apparence', appLanguage:'Langue', database:'Base de données', databaseSub:'Les données sont stockées localement dans ce navigateur.', clearDatabase:'Tout effacer', dashboard:'Accueil', noDemo:'Aucune donnée démo', todaySales:'Ventes du jour', invoices:'Factures', pendingDebts:'Dettes en attente', productCount:'Produits', open:'Ouvrir', emptyProducts:'Aucun produit. Ajoutez-en depuis Produits.', emptyCart:'Facture vide.', emptyDebts:'Aucune dette.', emptyReports:'Aucune vente.', emptyInventory:'Aucun produit à suivre.', lowStock:'Stock faible', available:'Disponible', outOfStock:'Rupture', addToCart:'Ajouter', increase:'Augmenter', decrease:'Diminuer', delete:'Supprimer', markPaid:'Payé', paid:'Payé', unpaid:'Non payé', total:'Total', quantity:'Qté', bestSeller:'Meilleure vente', profit:'Profit', cost:'Coût', margin:'Marge', saved:'Enregistré', saleSaved:'Facture enregistrée', dbCleared:'Base effacée', searchByName:'Recherche par nom', searchByBarcode:'Recherche par code-barres', filterAll:'Tous', filterAvailable:'Disponible', filterLow:'Faible', filterOut:'Rupture', noSearchResults:'Aucun produit trouvé.'
       }
     };
 
     let db = loadDb();
     let cart = {};
     let pendingProductImageDataURL = null;
+    let cashierFilter = 'all';
     const routes = ['dashboard', 'cashier', 'products', 'inventory', 'reports', 'debts'];
-    const routeIcons = { dashboard:'🏠', cashier:'🧾', products:'🏷️', inventory:'📦', reports:'📊', debts:'💳' };
+    const routeIcons = { dashboard:'HM', cashier:'POS', products:'PRD', inventory:'INV', reports:'RPT', debts:'DBT', settings:'SET' };
 
     function loadDb() {
-      try { return { ...initialDb, ...JSON.parse(localStorage.getItem(DB_KEY) || '{}') }; }
-      catch { return structuredClone(initialDb); }
+      try {
+        const stored = JSON.parse(localStorage.getItem(DB_KEY) || '{}');
+        const settings = { ...initialDb.settings, ...(stored.settings || {}) };
+        if (settings.theme && !settings.themeMode) settings.themeMode = 'light';
+        return { ...initialDb, ...stored, settings };
+      } catch { return structuredClone(initialDb); }
     }
     function saveDb() { localStorage.setItem(DB_KEY, JSON.stringify(db)); }
     function tr(key) { return (t[db.settings.language] || t.ar)[key] || t.ar[key] || key; }
@@ -313,23 +344,23 @@
     function todayKey() { return new Date().toISOString().slice(0, 10); }
     function id() { return `${Date.now()}-${Math.random().toString(16).slice(2)}`; }
     function toast(message) { alert(message); }
+    function productCost(product) { return Number(product.purchasePrice || 0); }
+    function saleProfit(sale) { return sale.items.reduce((sum, item) => sum + (((item.unitPrice ?? item.price) || 0) - (item.purchasePrice || 0)) * item.qty, 0); }
 
     function applySettings() {
-      const theme = themes[db.settings.theme] || themes.blue;
-      document.documentElement.style.setProperty('--primary', theme.color);
-      document.documentElement.style.setProperty('--primary-dark', theme.dark);
+      document.documentElement.dataset.themeMode = db.settings.themeMode || 'light';
       document.documentElement.lang = db.settings.language;
       document.documentElement.dir = db.settings.language === 'ar' ? 'rtl' : 'ltr';
       document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = tr(node.dataset.i18n); });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(node => { node.placeholder = tr(node.dataset.i18nPlaceholder); });
       document.getElementById('headerSubtitle').textContent = tr('noDemo');
     }
 
     function renderNav(active = currentRoute()) {
       const nav = document.getElementById('navList');
-      nav.innerHTML = routes.map(route => `<button class="nav-item ${route === active ? 'active' : ''}" data-route="${route}">${routeIcons[route]} <span>${tr(route)}</span></button>`).join('');
+      nav.innerHTML = routes.map(route => `<button class="nav-item ${route === active ? 'active' : ''}" data-route="${route}"><span class="icon">${routeIcons[route]}</span><span>${tr(route)}</span></button>`).join('');
       document.querySelectorAll('[data-route]').forEach(button => button.onclick = () => navigate(button.dataset.route));
     }
-
     function currentRoute() { return document.querySelector('.section.active')?.id || 'dashboard'; }
     function navigate(route) {
       document.querySelectorAll('.section').forEach(section => section.classList.toggle('active', section.id === route));
@@ -344,14 +375,15 @@
     function renderDashboard() {
       const todaySales = db.sales.filter(sale => sale.date === todayKey());
       const salesTotal = todaySales.reduce((sum, sale) => sum + sale.total, 0);
+      const profitTotal = todaySales.reduce((sum, sale) => sum + saleProfit(sale), 0);
       const pendingDebts = db.debts.filter(debt => !debt.paid).reduce((sum, debt) => sum + debt.amount, 0);
       const metrics = [
         [tr('todaySales'), money(salesTotal), tr('total')],
+        [tr('profit'), money(profitTotal), tr('margin')],
         [tr('invoices'), todaySales.length, tr('todaySales')],
-        [tr('pendingDebts'), money(pendingDebts), tr('unpaid')],
-        [tr('productCount'), db.products.length, tr('available')]
+        [tr('pendingDebts'), money(pendingDebts), tr('unpaid')]
       ];
-      document.getElementById('dashboardMetrics').innerHTML = metrics.map(([label, value, foot]) => `<div class="card metric"><span class="icon">•</span><div><strong>${value}</strong><div class="muted small">${label}</div><div class="foot">${foot}</div></div></div>`).join('');
+      document.getElementById('dashboardMetrics').innerHTML = metrics.map(([label, value, foot]) => `<div class="card metric"><span class="icon">SUM</span><div><strong>${value}</strong><div class="muted small">${label}</div><div class="foot">${foot}</div></div></div>`).join('');
       document.getElementById('quickActions').innerHTML = routes.filter(r => r !== 'dashboard').map(route => `<button class="card row" data-route="${route}"><span class="icon">${routeIcons[route]}</span><span class="item-main"><strong>${tr(route)}</strong><span>${tr('open')}</span></span></button>`).join('');
       document.querySelectorAll('[data-route]').forEach(button => button.onclick = () => navigate(button.dataset.route));
     }
@@ -359,21 +391,40 @@
     function renderProducts() {
       const list = document.getElementById('productsList');
       if (!db.products.length) { list.innerHTML = `<div class="empty">${tr('emptyProducts')}</div>`; return; }
-      list.innerHTML = db.products.map(product => `<div class="card row wrap">${productImageHtml(product)}<span class="item-main"><strong>${escapeHtml(product.name)}</strong><span>${money(product.price)} · ${tr('quantity')}: ${product.stock}${product.barcode ? ` · ${escapeHtml(product.barcode)}` : ''}</span></span><button class="button danger" data-delete-product="${product.id}">${tr('delete')}</button></div>`).join('');
+      list.innerHTML = db.products.map(product => `<div class="card row wrap">${productImageHtml(product)}<span class="item-main"><strong>${escapeHtml(product.name)}</strong><span>${tr('purchasePrice')}: ${money(product.purchasePrice)} · ${tr('price')}: ${money(product.price)} · ${tr('profit')}: ${money((product.price || 0) - productCost(product))}</span><span>${tr('quantity')}: ${product.stock}${product.barcode ? ` · ${escapeHtml(product.barcode)}` : ''}</span></span><button class="button danger" data-delete-product="${product.id}">${tr('delete')}</button></div>`).join('');
       document.querySelectorAll('[data-delete-product]').forEach(btn => btn.onclick = () => { db.products = db.products.filter(p => p.id !== btn.dataset.deleteProduct); delete cart[btn.dataset.deleteProduct]; saveDb(); render(); });
     }
 
+    function cashierFilteredProducts() {
+      const nameQuery = (document.getElementById('cashierNameSearch')?.value || '').trim().toLowerCase();
+      const barcodeQuery = (document.getElementById('cashierBarcodeSearch')?.value || '').trim().toLowerCase();
+      return db.products.filter(product => {
+        const matchesName = !nameQuery || product.name.toLowerCase().includes(nameQuery);
+        const matchesBarcode = !barcodeQuery || String(product.barcode || '').toLowerCase().includes(barcodeQuery);
+        const matchesFilter = cashierFilter === 'all'
+          || (cashierFilter === 'available' && product.stock > 0)
+          || (cashierFilter === 'low' && product.stock > 0 && product.stock <= product.lowStock)
+          || (cashierFilter === 'out' && product.stock <= 0);
+        return matchesName && matchesBarcode && matchesFilter;
+      });
+    }
+    function renderCashierFilters() {
+      const filters = [['all', tr('filterAll')], ['available', tr('filterAvailable')], ['low', tr('filterLow')], ['out', tr('filterOut')]];
+      document.getElementById('cashierFilters').innerHTML = filters.map(([key, label]) => `<button class="filter-chip ${cashierFilter === key ? 'active' : ''}" data-filter="${key}">${label}</button>`).join('');
+      document.querySelectorAll('[data-filter]').forEach(btn => btn.onclick = () => { cashierFilter = btn.dataset.filter; renderCashier(); });
+    }
     function renderCashier() {
-      const available = db.products.filter(product => product.stock > 0);
+      renderCashierFilters();
+      const products = cashierFilteredProducts();
       const productsNode = document.getElementById('cashierProducts');
-      if (!available.length) { productsNode.innerHTML = `<div class="empty">${tr('emptyProducts')}</div>`; }
+      if (!db.products.length) { productsNode.innerHTML = `<div class="empty" style="grid-column:1/-1">${tr('emptyProducts')}</div>`; }
+      else if (!products.length) { productsNode.innerHTML = `<div class="empty" style="grid-column:1/-1">${tr('noSearchResults')}</div>`; }
       else {
-        productsNode.innerHTML = available.map(product => `<div class="card row">${productImageHtml(product)}<span class="item-main"><strong>${escapeHtml(product.name)}</strong><span>${money(product.price)} · ${tr('stock')}: ${product.stock}</span></span><button class="button" data-cart-add="${product.id}">${tr('addToCart')}</button></div>`).join('');
+        productsNode.innerHTML = products.map(product => `<button class="sale-product ${product.stock <= 0 ? 'disabled' : ''}" data-cart-add="${product.id}">${productImageHtml(product)}<strong>${escapeHtml(product.name)}</strong><span>${money(product.price)}</span><span>${tr('stock')}: ${product.stock}</span></button>`).join('');
       }
       document.querySelectorAll('[data-cart-add]').forEach(btn => btn.onclick = () => addToCart(btn.dataset.cartAdd));
       renderCart();
     }
-
     function addToCart(productId) {
       const product = db.products.find(p => p.id === productId);
       if (!product) return;
@@ -386,20 +437,18 @@
       const lines = Object.entries(cart).filter(([, qty]) => qty > 0).map(([productId, qty]) => ({ product: db.products.find(p => p.id === productId), qty })).filter(line => line.product);
       const total = lines.reduce((sum, line) => sum + line.product.price * line.qty, 0);
       document.getElementById('cartTotal').textContent = money(total);
-      document.getElementById('cartLines').innerHTML = lines.length ? lines.map(line => `<div class="cart-line"><span><strong>${escapeHtml(line.product.name)}</strong><br><span class="muted small">${line.qty} × ${money(line.product.price)}</span></span><span class="row"><button class="button light" data-cart-dec="${line.product.id}">−</button><span class="pill">${line.qty}</span><button class="button light" data-cart-inc="${line.product.id}">+</button></span></div>`).join('') : `<div class="empty">${tr('emptyCart')}</div>`;
+      document.getElementById('cartLines').innerHTML = lines.length ? lines.map(line => `<div class="cart-line"><span><strong>${escapeHtml(line.product.name)}</strong><br><span class="muted small">${line.qty} X ${money(line.product.price)}</span></span><span class="row"><button class="button light" data-cart-dec="${line.product.id}">−</button><span class="pill">${line.qty}</span><button class="button light" data-cart-inc="${line.product.id}">+</button></span></div>`).join('') : `<div class="empty">${tr('emptyCart')}</div>`;
       document.querySelectorAll('[data-cart-inc]').forEach(btn => btn.onclick = () => addToCart(btn.dataset.cartInc));
       document.querySelectorAll('[data-cart-dec]').forEach(btn => btn.onclick = () => { cart[btn.dataset.cartDec] = Math.max(0, (cart[btn.dataset.cartDec] || 0) - 1); renderCart(); });
     }
     function completeSale() {
       const lines = Object.entries(cart).filter(([, qty]) => qty > 0).map(([productId, qty]) => ({ product: db.products.find(p => p.id === productId), qty })).filter(line => line.product);
       if (!lines.length) return;
-      const sale = { id: id(), date: todayKey(), createdAt: new Date().toISOString(), items: lines.map(line => ({ productId: line.product.id, name: line.product.name, qty: line.qty, price: line.product.price })), total: lines.reduce((sum, line) => sum + line.product.price * line.qty, 0) };
+      const sale = { id: id(), date: todayKey(), createdAt: new Date().toISOString(), items: lines.map(line => ({ productId: line.product.id, name: line.product.name, qty: line.qty, price: line.product.price, unitPrice: line.product.price, purchasePrice: productCost(line.product) })), total: lines.reduce((sum, line) => sum + line.product.price * line.qty, 0) };
       lines.forEach(line => { line.product.stock = Math.max(0, line.product.stock - line.qty); });
       db.sales.push(sale);
       Object.keys(cart).forEach(key => delete cart[key]);
-      saveDb();
-      toast(tr('saleSaved'));
-      render();
+      saveDb(); toast(tr('saleSaved')); render();
     }
 
     function renderInventory() {
@@ -416,40 +465,40 @@
 
     function renderReports() {
       const total = db.sales.reduce((sum, sale) => sum + sale.total, 0);
+      const profit = db.sales.reduce((sum, sale) => sum + saleProfit(sale), 0);
       const items = {};
       db.sales.forEach(sale => sale.items.forEach(item => { items[item.name] = (items[item.name] || 0) + item.qty; }));
       const top = Object.entries(items).sort((a, b) => b[1] - a[1]);
-      document.getElementById('reportMetrics').innerHTML = [[tr('total'), money(total)], [tr('invoices'), db.sales.length], [tr('bestSeller'), top[0]?.[0] || '—']].map(([label, value]) => `<div class="card metric"><span class="icon">📊</span><div><strong>${escapeHtml(String(value))}</strong><div class="muted small">${label}</div></div></div>`).join('');
+      document.getElementById('reportMetrics').innerHTML = [[tr('total'), money(total)], [tr('profit'), money(profit)], [tr('invoices'), db.sales.length], [tr('bestSeller'), top[0]?.[0] || '—']].map(([label, value]) => `<div class="card metric"><span class="icon">RPT</span><div><strong>${escapeHtml(String(value))}</strong><div class="muted small">${label}</div></div></div>`).join('');
       document.getElementById('topProducts').innerHTML = top.length ? top.slice(0, 5).map(([name, qty]) => `<div class="row"><span class="item-main"><strong>${escapeHtml(name)}</strong><span>${tr('quantity')}: ${qty}</span></span><span class="pill">${qty}</span></div>`).join('') : `<div class="empty">${tr('emptyReports')}</div>`;
     }
 
     function renderDebts() {
       const list = document.getElementById('debtsList');
       if (!db.debts.length) { list.innerHTML = `<div class="empty">${tr('emptyDebts')}</div>`; return; }
-      list.innerHTML = db.debts.map(debt => `<div class="card row wrap"><span class="icon">💳</span><span class="item-main"><strong>${escapeHtml(debt.customer)}</strong><span>${money(debt.amount)}${debt.dueDate ? ` · ${debt.dueDate}` : ''}</span></span><span class="pill ${debt.paid ? 'success' : 'danger'}">${debt.paid ? tr('paid') : tr('unpaid')}</span>${debt.paid ? '' : `<button class="button success" data-paid-debt="${debt.id}">${tr('markPaid')}</button>`}<button class="button danger" data-delete-debt="${debt.id}">${tr('delete')}</button></div>`).join('');
+      list.innerHTML = db.debts.map(debt => `<div class="card row wrap"><span class="icon">DBT</span><span class="item-main"><strong>${escapeHtml(debt.customer)}</strong><span>${money(debt.amount)}${debt.dueDate ? ` · ${debt.dueDate}` : ''}</span></span><span class="pill ${debt.paid ? 'success' : 'danger'}">${debt.paid ? tr('paid') : tr('unpaid')}</span>${debt.paid ? '' : `<button class="button success" data-paid-debt="${debt.id}">${tr('markPaid')}</button>`}<button class="button danger" data-delete-debt="${debt.id}">${tr('delete')}</button></div>`).join('');
       document.querySelectorAll('[data-paid-debt]').forEach(btn => btn.onclick = () => { const debt = db.debts.find(d => d.id === btn.dataset.paidDebt); if (debt) debt.paid = true; saveDb(); render(); });
       document.querySelectorAll('[data-delete-debt]').forEach(btn => btn.onclick = () => { db.debts = db.debts.filter(d => d.id !== btn.dataset.deleteDebt); saveDb(); render(); });
     }
 
     function renderSettings() {
-      document.getElementById('themeOptions').innerHTML = Object.entries(themes).map(([key, theme]) => `<button class="option ${db.settings.theme === key ? 'selected' : ''}" data-theme-key="${key}"><span class="swatch" style="background:${theme.color}">${db.settings.theme === key ? '✓' : ''}</span><span class="item-main"><strong>${theme.label}</strong><span>${theme.description}</span></span></button>`).join('');
+      document.getElementById('themeOptions').innerHTML = Object.entries(themeModes).map(([key, theme]) => `<button class="option ${db.settings.themeMode === key ? 'selected' : ''}" data-theme-key="${key}"><span class="badge">${key === 'dark' ? 'DK' : 'LT'}</span><span class="item-main"><strong>${theme.label}</strong><span>${theme.description}</span></span></button>`).join('');
       document.getElementById('languageOptions').innerHTML = Object.entries(languages).map(([key, lang]) => `<button class="option ${db.settings.language === key ? 'selected' : ''}" data-language-key="${key}"><span class="badge">${lang.code}</span><span class="item-main"><strong>${lang.label}</strong><span>${lang.description}</span></span></button>`).join('');
-      document.querySelectorAll('[data-theme-key]').forEach(btn => btn.onclick = () => { db.settings.theme = btn.dataset.themeKey; saveDb(); applySettings(); render(); });
+      document.querySelectorAll('[data-theme-key]').forEach(btn => btn.onclick = () => { db.settings.themeMode = btn.dataset.themeKey; saveDb(); applySettings(); render(); });
       document.querySelectorAll('[data-language-key]').forEach(btn => btn.onclick = () => { db.settings.language = btn.dataset.languageKey; saveDb(); applySettings(); renderNav(currentRoute()); render(); });
     }
 
     function addProduct() {
       const name = document.getElementById('productName').value.trim();
+      const purchasePrice = Number(document.getElementById('productPurchasePrice').value || 0);
       const price = Number(document.getElementById('productPrice').value || 0);
       const stock = Number(document.getElementById('productStock').value || 0);
       const lowStock = Number(document.getElementById('productLow').value || 0);
       const barcode = document.getElementById('productBarcode').value.trim();
       if (!name || price <= 0) return;
-      db.products.push({ id: id(), name, imageDataURL: pendingProductImageDataURL, price, stock: Math.max(0, stock), lowStock: Math.max(0, lowStock), barcode });
-      ['productName', 'productPrice', 'productStock', 'productBarcode', 'productImage'].forEach(inputId => document.getElementById(inputId).value = '');
-      pendingProductImageDataURL = null;
-      updateProductImagePreview();
-      saveDb(); toast(tr('saved')); render();
+      db.products.push({ id: id(), name, imageDataURL: pendingProductImageDataURL, purchasePrice, price, stock: Math.max(0, stock), lowStock: Math.max(0, lowStock), barcode });
+      ['productName', 'productPurchasePrice', 'productPrice', 'productStock', 'productBarcode', 'productImage'].forEach(inputId => document.getElementById(inputId).value = '');
+      pendingProductImageDataURL = null; updateProductImagePreview(); saveDb(); toast(tr('saved')); render();
     }
     function addDebt() {
       const customer = document.getElementById('debtCustomer').value.trim();
@@ -463,46 +512,26 @@
     function clearDatabase() {
       if (!confirm(tr('clearDatabase') + '؟')) return;
       db = { ...structuredClone(initialDb), settings: db.settings };
-      Object.keys(cart).forEach(key => delete cart[key]);
-      saveDb(); toast(tr('dbCleared')); render();
+      Object.keys(cart).forEach(key => delete cart[key]); saveDb(); toast(tr('dbCleared')); render();
     }
     function productImageHtml(product) {
-      if (product.imageDataURL) {
-        return `<img class="product-photo" src="${escapeHtml(product.imageDataURL)}" alt="${escapeHtml(product.name)}" />`;
-      }
-      return `<span class="product-photo placeholder" aria-hidden="true">🏷️</span>`;
+      if (product.imageDataURL) return `<img class="product-photo" src="${escapeHtml(product.imageDataURL)}" alt="${escapeHtml(product.name)}" />`;
+      return `<span class="product-photo placeholder" aria-hidden="true">IMG</span>`;
     }
     function updateProductImagePreview() {
-      const preview = document.getElementById('productImagePreview');
-      if (!preview) return;
-      preview.src = pendingProductImageDataURL || '';
-      preview.style.display = pendingProductImageDataURL ? 'block' : 'none';
+      const preview = document.getElementById('productImagePreview'); if (!preview) return;
+      preview.src = pendingProductImageDataURL || ''; preview.style.display = pendingProductImageDataURL ? 'block' : 'none';
     }
     function readProductImage(file) {
-      if (!file) {
-        pendingProductImageDataURL = null;
-        updateProductImagePreview();
-        return;
-      }
+      if (!file) { pendingProductImageDataURL = null; updateProductImagePreview(); return; }
       const reader = new FileReader();
-      reader.onload = () => {
-        pendingProductImageDataURL = String(reader.result || '');
-        updateProductImagePreview();
-      };
+      reader.onload = () => { pendingProductImageDataURL = String(reader.result || ''); updateProductImagePreview(); };
       reader.readAsDataURL(file);
     }
     function escapeHtml(value) { return String(value).replace(/[&<>"]/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[char])); }
 
     function render() {
-      applySettings();
-      renderDashboard();
-      renderProducts();
-      renderCashier();
-      renderInventory();
-      renderReports();
-      renderDebts();
-      renderSettings();
-      renderNav(currentRoute());
+      applySettings(); renderDashboard(); renderProducts(); renderCashier(); renderInventory(); renderReports(); renderDebts(); renderSettings(); renderNav(currentRoute());
       document.getElementById('headerTitle').textContent = tr(currentRoute());
     }
 
@@ -514,8 +543,10 @@
     document.getElementById('completeSale').onclick = completeSale;
     document.getElementById('clearDatabase').onclick = clearDatabase;
     document.getElementById('productImage').onchange = event => readProductImage(event.target.files?.[0]);
+    document.getElementById('cashierNameSearch').oninput = renderCashier;
+    document.getElementById('cashierBarcodeSearch').oninput = renderCashier;
 
     render();
-  </script>
+</script>
 </body>
 </html>

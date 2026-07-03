@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     let viewModel: HomeViewModel
-    @State private var selectedThemeName = "أزرق"
+    @State private var selectedThemeName = "فاتح"
     @State private var selectedLanguageCode = "AR"
     private let metricColumns = [GridItem(.flexible()), GridItem(.flexible())]
 
@@ -128,12 +128,12 @@ struct ContentView: View {
 
     private var preferencesSection: some View {
         VStack(alignment: .trailing, spacing: 14) {
-            SectionTitle(title: "إعدادات البرنامج", subtitle: "اختر لون الثيم ولغة الواجهة")
+            SectionTitle(title: "إعدادات البرنامج", subtitle: "اختر المظهر ولغة الواجهة")
 
             VStack(spacing: 12) {
                 PreferenceGroupCard(
-                    title: "لون الثيم",
-                    subtitle: "الأزرق محدد كبداية ويمكن تغييره لاحقاً",
+                    title: "المظهر",
+                    subtitle: "اختر بين الوضع الفاتح أو الداكن",
                     options: viewModel.themeOptions.map { option in
                         PreferenceChip(
                             title: option.name,

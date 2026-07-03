@@ -14,9 +14,9 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.dailySummary.revenue, "0 دج")
         XCTAssertEqual(viewModel.healthItems.count, 0)
         XCTAssertEqual(viewModel.quickActions.count, 4)
-        XCTAssertEqual(viewModel.themeOptions.count, 4)
+        XCTAssertEqual(viewModel.themeOptions.count, 2)
         XCTAssertEqual(viewModel.languageOptions.count, 3)
-        XCTAssertEqual(viewModel.themeOptions.first(where: { $0.isSelected })?.name, "أزرق")
+        XCTAssertEqual(viewModel.themeOptions.first(where: { $0.isSelected })?.name, "فاتح")
         XCTAssertEqual(viewModel.languageOptions.first(where: { $0.isSelected })?.code, "AR")
         XCTAssertEqual(viewModel.features.count, 4)
         XCTAssertTrue(viewModel.features.contains { $0.title == "كاشير سريع" })
@@ -39,6 +39,7 @@ final class HomeViewModelTests: XCTestCase {
                 id: UUID(),
                 name: "حليب",
                 imageDataURL: "data:image/png;base64,AAAA",
+                purchasePrice: 90,
                 price: 120,
                 stock: 6,
                 lowStockThreshold: 2,

@@ -20,10 +20,8 @@ struct HomeViewModel {
         QuickAction(title: "دين جديد", subtitle: "سجل زبون", iconName: "creditcard", tintName: "purple")
     ]
     let themeOptions = [
-        ThemeOption(name: "أزرق", description: "ثقة ووضوح", tintName: "blue", isSelected: true),
-        ThemeOption(name: "أخضر", description: "مبيعات ونمو", tintName: "green", isSelected: false),
-        ThemeOption(name: "بنفسجي", description: "لمسة عصرية", tintName: "purple", isSelected: false),
-        ThemeOption(name: "برتقالي", description: "نشاط وسرعة", tintName: "orange", isSelected: false)
+        ThemeOption(name: "فاتح", description: "واجهة واضحة للنهار", tintName: "blue", isSelected: true),
+        ThemeOption(name: "داكن", description: "واجهة مريحة في الليل", tintName: "purple", isSelected: false)
     ]
     let languageOptions = [
         LanguageOption(name: "العربية", code: "AR", description: "اللغة الافتراضية", isSelected: true),
