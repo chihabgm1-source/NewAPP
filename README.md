@@ -12,14 +12,17 @@ The app helps small retail shops manage core operations in a simple mobile workf
 - Daily, weekly, and monthly sales summaries
 - Customer debt tracking with repayment reminders
 
-## Initial app experience
+## Initial design direction
 
-The current SwiftUI starter screen presents:
+The current SwiftUI starter experience presents a polished Arabic dashboard for a small shop owner:
 
-- Arabic right-to-left layout
-- A clear value proposition for shop owners
-- Daily summary cards for sales, best-selling product, and pending debts
-- Feature cards for cashier, inventory, reports, and debts
+- Right-to-left Arabic interface
+- Warm shop greeting and store identity header
+- Large hero card with quick invoice and barcode actions
+- Daily metric cards for sales, invoices, and pending debts
+- Quick action grid for cashier, products, barcode scanning, and debts
+- Store health alerts for low stock and best-selling products
+- Reusable visual theme tokens in `AppTheme.swift`
 
 ## Requirements
 
@@ -52,9 +55,10 @@ Then run the `NewAPP` scheme from Xcode on an iOS simulator.
 
 ```text
 NewAPP/
+  AppTheme.swift         Visual design tokens and card styling
   NewAPPApp.swift        App entry point
   ContentView.swift      Main SwiftUI dashboard screen
-  HomeViewModel.swift    Initial product state and feature content
+  HomeViewModel.swift    Initial product state and dashboard content
   Assets.xcassets/       App assets
 
 NewAPPTests/
