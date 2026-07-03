@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NewAPP Preview</title>
+  <style>
+    :root {
+      --primary: #1a6beb;
+      --primary-dark: #0d2e6b;
+      --background: #f2f4f8;
+      --card: #ffffff;
+      --ink: #141c2e;
+      --muted: #647084;
+      --success: #0d9457;
+      --warning: #f28c24;
+      --purple: #7a4fea;
+      --shadow: 0 18px 40px rgba(18, 31, 53, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(135deg, #e8eef9, #f8fafc);
+      color: var(--ink);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px 16px;
+    }
+
+    .phone {
+      width: min(420px, 100%);
+      min-height: 860px;
+      background: var(--background);
+      border: 10px solid #111827;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(15, 23, 42, 0.28);
+      position: relative;
+    }
+
+    .notch {
+      width: 130px;
+      height: 28px;
+      background: #111827;
+      border-radius: 0 0 18px 18px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .screen {
+      height: 860px;
+      overflow: auto;
+      padding: 34px 20px 28px;
+    }
+
+    .header, .hero-top, .row, .actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header { margin-bottom: 22px; }
+    .spacer { flex: 1; }
+
+    .avatar, .bell, .icon-box {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      color: white;
+      background: var(--primary-dark);
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .bell {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .muted { color: var(--muted); }
+    .small { font-size: 13px; }
+    .title { font-size: 23px; font-weight: 800; }
+
+    .hero {
+      color: white;
+      background: linear-gradient(145deg, var(--primary-dark), var(--primary));
+      border-radius: 32px;
+      padding: 22px;
+      box-shadow: 0 22px 38px color-mix(in srgb, var(--primary) 26%, transparent);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.10);
+      position: absolute;
+      left: -38px;
+      bottom: -42px;
+    }
+
+    .store-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.16);
+      display: grid;
+      place-items: center;
+      font-size: 34px;
+      flex: 0 0 auto;
+    }
+
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 34px; line-height: 1.12; }
+    .hero p { color: rgba(255,255,255,0.78); line-height: 1.8; margin-top: 8px; }
+
+    .button {
+      flex: 1;
+      border: 0;
+      border-radius: 18px;
+      padding: 14px 10px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .button.primary { background: white; color: var(--primary-dark); }
+    .button.secondary { background: rgba(255,255,255,0.18); color: white; }
+
+    section { margin-bottom: 24px; }
+    .section-title { margin-bottom: 14px; }
+    .section-title h2 { font-size: 17px; }
+    .section-title p { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+    .card {
+      background: var(--card);
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric { min-height: 142px; display: flex; flex-direction: column; justify-content: space-between; }
+    .metric strong { font-size: 22px; }
+    .metric .foot { color: var(--success); font-size: 12px; font-weight: 700; }
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--primary) 13%, transparent);
+      color: var(--primary);
+      font-size: 20px;
+    }
+
+    .quick { min-height: 128px; display: flex; flex-direction: column; justify-content: space-between; }
+    .quick .icon-box { color: white; background: var(--primary); }
+
+    .preference-group { display: grid; gap: 10px; }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      border: 1px solid transparent;
+      border-radius: 18px;
+      padding: 12px;
+      background: var(--background);
+      cursor: pointer;
+      text-align: right;
+      font: inherit;
+      color: inherit;
+    }
+
+    .option.selected {
+      background: color-mix(in srgb, var(--primary) 10%, white);
+      border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+    }
+
+    .swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+
+    .badge {
+      width: 42px;
+      height: 32px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      background: color-mix(in srgb, var(--primary) 10%, transparent);
+      flex: 0 0 auto;
+    }
+
+    .selected .badge { color: white; background: var(--primary); }
+    .option-content { flex: 1; }
+    .option-content strong { display: block; font-size: 14px; }
+    .option-content span { color: var(--muted); font-size: 12px; }
+
+    .list { display: grid; gap: 12px; }
+    .list-row { display: flex; align-items: center; gap: 14px; }
+    .pill { padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 800; background: rgba(242, 140, 36, 0.12); color: var(--warning); }
+
+    .feature p { color: var(--muted); font-size: 14px; line-height: 1.7; margin-top: 4px; }
+
+    @media (max-width: 430px) {
+      .page { padding: 0; }
+      .phone { width: 100%; min-height: 100vh; border: 0; border-radius: 0; }
+      .screen { height: 100vh; }
+      .notch { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <header class="header">
+          <div class="bell">🔔</div>
+          <div class="spacer"></div>
+          <div>
+            <div class="muted small" data-i18n="greeting">مساء الخير، شهاب</div>
+            <div class="title" data-i18n="store">بقالة السلام</div>
+          </div>
+          <div class="avatar">م</div>
+        </header>
+
+        <section class="hero">
+          <div class="hero-top">
+            <div class="store-icon">🏪</div>
+            <div class="spacer"></div>
+            <div>
+              <h1 data-i18n="headline">محلك في جيبك</h1>
+              <p data-i18n="subtitle">كاشير، مخزون، تقارير، وديون في تطبيق عربي بسيط لأصحاب المحلات الصغيرة.</p>
+            </div>
+          </div>
+          <div class="actions" style="margin-top: 20px;">
+            <button class="button secondary" data-i18n="scan">▣ مسح باركود</button>
+            <button class="button primary" data-i18n="invoice">＋ فاتورة جديدة</button>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">
+            <h2 data-i18n="summaryTitle">ملخص اليوم</h2>
+            <p data-i18n="summarySub">أرقام سريعة تساعدك تتخذ القرار</p>
+          </div>
+          <div class="grid">
+            <div class="card metric"><div class="icon-box">💵</div><div><strong>1,250 دج</strong><div class="muted small" data-i18n="sales">مبيعات اليوم</div><div class="foot">+12% عن أمس</div></div></div>
+            <div class="card metric"><div class="icon-box">🧾</div><div><strong>18</strong><div class="muted small" data-i18n="bills">الفواتير</div><div class="foot">آخر فاتورة قبل 7 د</div></div></div>
+            <div class="card metric"><div class="icon-box">👤</div><div><strong>3</strong><div class="muted small" data-i18n="debts">ديون معلقة</div><div class="foot">أقرب سداد غداً</div></div></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">
+            <h2 data-i18n="settingsTitle">إعدادات البرنامج</h2>
+            <p data-i18n="settingsSub">اختر لون الثيم ولغة الواجهة</p>
+          </div>
+          <div class="list">
+            <div class="card preference-group">
+              <strong data-i18n="themeTitle">لون الثيم</strong>
+              <button class="option selected" data-theme="#1a6beb" data-dark="#0d2e6b"><span class="swatch" style="background:#1a6beb">✓</span><span class="option-content"><strong>أزرق</strong><span>ثقة ووضوح</span></span></button>
+              <button class="option" data-theme="#0d9457" data-dark="#064e3b"><span class="swatch" style="background:#0d9457"></span><span class="option-content"><strong>أخضر</strong><span>مبيعات ونمو</span></span></button>
+              <button class="option" data-theme="#7a4fea" data-dark="#3b237a"><span class="swatch" style="background:#7a4fea"></span><span class="option-content"><strong>بنفسجي</strong><span>لمسة عصرية</span></span></button>
+              <button class="option" data-theme="#f28c24" data-dark="#7c3f08"><span class="swatch" style="background:#f28c24"></span><span class="option-content"><strong>برتقالي</strong><span>نشاط وسرعة</span></span></button>
+            </div>
+            <div class="card preference-group">
+              <strong data-i18n="languageTitle">لغة البرنامج</strong>
+              <button class="option selected" data-lang="ar"><span class="badge">AR</span><span class="option-content"><strong>العربية</strong><span>اللغة الافتراضية</span></span></button>
+              <button class="option" data-lang="en"><span class="badge">EN</span><span class="option-content"><strong>English</strong><span>English interface</span></span></button>
+              <button class="option" data-lang="fr"><span class="badge">FR</span><span class="option-content"><strong>Français</strong><span>Interface française</span></span></button>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2 data-i18n="actionsTitle">إجراءات سريعة</h2><p data-i18n="actionsSub">كل ما يحتاجه صاحب المحل بضغطة</p></div>
+          <div class="grid">
+            <div class="card quick"><div class="icon-box">🛒</div><div><strong data-i18n="quickSale">بيع سريع</strong><div class="muted small" data-i18n="openCashier">افتح الكاشير</div></div></div>
+            <div class="card quick"><div class="icon-box">➕</div><div><strong data-i18n="newProduct">منتج جديد</strong><div class="muted small" data-i18n="photoPrice">صورة وسعر</div></div></div>
+            <div class="card quick"><div class="icon-box">▣</div><div><strong data-i18n="barcode">مسح باركود</strong><div class="muted small" data-i18n="camera">بالكاميرا</div></div></div>
+            <div class="card quick"><div class="icon-box">💳</div><div><strong data-i18n="newDebt">دين جديد</strong><div class="muted small" data-i18n="customer">سجل زبون</div></div></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2 data-i18n="healthTitle">حالة المحل</h2><p data-i18n="healthSub">تنبيهات مهمة قبل نهاية اليوم</p></div>
+          <div class="list">
+            <div class="card list-row"><div><strong data-i18n="lowStock">المخزون المنخفض</strong><div class="muted small" data-i18n="needsFollow">يحتاج متابعة</div></div><div class="spacer"></div><span class="pill" data-i18n="fiveProducts">5 منتجات</span><div class="icon-box">⚠️</div></div>
+            <div class="card list-row"><div><strong data-i18n="bestProduct">أفضل منتج</strong><div class="muted small" data-i18n="topSelling">الأكثر مبيعاً</div></div><div class="spacer"></div><span class="pill" style="background:rgba(13,148,87,.12);color:var(--success)" data-i18n="coffee">قهوة عربية</span><div class="icon-box">⭐</div></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2 data-i18n="sectionsTitle">الأقسام الرئيسية</h2><p data-i18n="sectionsSub">النسخة الأولى مبنية حول هذه الأدوات</p></div>
+          <div class="list">
+            <div class="card list-row feature"><div><strong data-i18n="cashierTitle">كاشير سريع</strong><p data-i18n="cashierDesc">أضف المنتجات بصورة وسعر وأنشئ الفاتورة خلال ثوانٍ.</p></div><div class="icon-box">🧾</div></div>
+            <div class="card list-row feature"><div><strong data-i18n="inventoryTitle">تتبع المخزون</strong><p data-i18n="inventoryDesc">تنبيهات عند انخفاض الكمية ومسح باركود بالكاميرا.</p></div><div class="icon-box">📦</div></div>
+            <div class="card list-row feature"><div><strong data-i18n="reportsTitle">تقارير يومية</strong><p data-i18n="reportsDesc">اعرف ربح اليوم، أكثر منتج مبيعاً، وملخص الأسبوع أو الشهر.</p></div><div class="icon-box">📊</div></div>
+            <div class="card list-row feature"><div><strong data-i18n="debtsTitle">متابعة الديون</strong><p data-i18n="debtsDesc">سجل الزبائن الذين يشترون بالدين وتذكير بمواعيد السداد.</p></div><div class="icon-box">💳</div></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const translations = {
+      ar: {
+        greeting: 'مساء الخير، شهاب', store: 'بقالة السلام', headline: 'محلك في جيبك', subtitle: 'كاشير، مخزون، تقارير، وديون في تطبيق عربي بسيط لأصحاب المحلات الصغيرة.', scan: '▣ مسح باركود', invoice: '＋ فاتورة جديدة', summaryTitle: 'ملخص اليوم', summarySub: 'أرقام سريعة تساعدك تتخذ القرار', sales: 'مبيعات اليوم', bills: 'الفواتير', debts: 'ديون معلقة', settingsTitle: 'إعدادات البرنامج', settingsSub: 'اختر لون الثيم ولغة الواجهة', themeTitle: 'لون الثيم', languageTitle: 'لغة البرنامج', actionsTitle: 'إجراءات سريعة', actionsSub: 'كل ما يحتاجه صاحب المحل بضغطة', quickSale: 'بيع سريع', openCashier: 'افتح الكاشير', newProduct: 'منتج جديد', photoPrice: 'صورة وسعر', barcode: 'مسح باركود', camera: 'بالكاميرا', newDebt: 'دين جديد', customer: 'سجل زبون', healthTitle: 'حالة المحل', healthSub: 'تنبيهات مهمة قبل نهاية اليوم', lowStock: 'المخزون المنخفض', needsFollow: 'يحتاج متابعة', fiveProducts: '5 منتجات', bestProduct: 'أفضل منتج', topSelling: 'الأكثر مبيعاً', coffee: 'قهوة عربية', sectionsTitle: 'الأقسام الرئيسية', sectionsSub: 'النسخة الأولى مبنية حول هذه الأدوات', cashierTitle: 'كاشير سريع', cashierDesc: 'أضف المنتجات بصورة وسعر وأنشئ الفاتورة خلال ثوانٍ.', inventoryTitle: 'تتبع المخزون', inventoryDesc: 'تنبيهات عند انخفاض الكمية ومسح باركود بالكاميرا.', reportsTitle: 'تقارير يومية', reportsDesc: 'اعرف ربح اليوم، أكثر منتج مبيعاً، وملخص الأسبوع أو الشهر.', debtsTitle: 'متابعة الديون', debtsDesc: 'سجل الزبائن الذين يشترون بالدين وتذكير بمواعيد السداد.'
+      },
+      en: {
+        greeting: 'Good evening, Chihab', store: 'Al Salam Grocery', headline: 'Your shop in your pocket', subtitle: 'Cashier, inventory, reports, and debts in a simple mobile app for small shops.', scan: '▣ Scan barcode', invoice: '＋ New invoice', summaryTitle: 'Today summary', summarySub: 'Fast numbers for better decisions', sales: 'Today sales', bills: 'Invoices', debts: 'Pending debts', settingsTitle: 'App settings', settingsSub: 'Choose theme color and interface language', themeTitle: 'Theme color', languageTitle: 'App language', actionsTitle: 'Quick actions', actionsSub: 'Everything the shop owner needs in one tap', quickSale: 'Quick sale', openCashier: 'Open cashier', newProduct: 'New product', photoPrice: 'Photo and price', barcode: 'Scan barcode', camera: 'With camera', newDebt: 'New debt', customer: 'Customer record', healthTitle: 'Shop health', healthSub: 'Important alerts before closing', lowStock: 'Low stock', needsFollow: 'Needs attention', fiveProducts: '5 products', bestProduct: 'Best product', topSelling: 'Top selling', coffee: 'Arabic coffee', sectionsTitle: 'Main sections', sectionsSub: 'The first version is built around these tools', cashierTitle: 'Fast cashier', cashierDesc: 'Add products with photo and price, then create an invoice in seconds.', inventoryTitle: 'Inventory tracking', inventoryDesc: 'Low-stock alerts and barcode scanning with the camera.', reportsTitle: 'Daily reports', reportsDesc: 'Know today profit, best seller, and weekly or monthly summaries.', debtsTitle: 'Debt tracking', debtsDesc: 'Track customers who buy on credit and repayment reminders.'
+      },
+      fr: {
+        greeting: 'Bonsoir, Chihab', store: 'Epicerie Al Salam', headline: 'Votre boutique dans votre poche', subtitle: 'Caisse, stock, rapports et dettes dans une application simple pour petits commerces.', scan: '▣ Scanner code-barres', invoice: '＋ Nouvelle facture', summaryTitle: 'Résumé du jour', summarySub: 'Des chiffres rapides pour décider', sales: 'Ventes du jour', bills: 'Factures', debts: 'Dettes en attente', settingsTitle: 'Réglages', settingsSub: 'Choisissez la couleur et la langue', themeTitle: 'Couleur du thème', languageTitle: 'Langue', actionsTitle: 'Actions rapides', actionsSub: 'Tout ce dont le commerçant a besoin', quickSale: 'Vente rapide', openCashier: 'Ouvrir la caisse', newProduct: 'Nouveau produit', photoPrice: 'Photo et prix', barcode: 'Scanner code-barres', camera: 'Avec caméra', newDebt: 'Nouvelle dette', customer: 'Fiche client', healthTitle: 'Etat du magasin', healthSub: 'Alertes importantes avant la fermeture', lowStock: 'Stock faible', needsFollow: 'A suivre', fiveProducts: '5 produits', bestProduct: 'Meilleur produit', topSelling: 'Meilleure vente', coffee: 'Café arabe', sectionsTitle: 'Sections principales', sectionsSub: 'La première version est construite autour de ces outils', cashierTitle: 'Caisse rapide', cashierDesc: 'Ajoutez les produits avec photo et prix, puis créez une facture en secondes.', inventoryTitle: 'Suivi du stock', inventoryDesc: 'Alertes de stock faible et scan de code-barres avec la caméra.', reportsTitle: 'Rapports quotidiens', reportsDesc: 'Suivez le profit du jour, les meilleures ventes et les résumés.', debtsTitle: 'Suivi des dettes', debtsDesc: 'Suivez les clients à crédit et les rappels de paiement.'
+      }
+    };
+
+    document.querySelectorAll('[data-theme]').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('[data-theme]').forEach((item) => {
+          item.classList.remove('selected');
+          const swatch = item.querySelector('.swatch');
+          if (swatch) swatch.textContent = '';
+        });
+        button.classList.add('selected');
+        button.querySelector('.swatch').textContent = '✓';
+        document.documentElement.style.setProperty('--primary', button.dataset.theme);
+        document.documentElement.style.setProperty('--primary-dark', button.dataset.dark);
+      });
+    });
+
+    document.querySelectorAll('[data-lang]').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('[data-lang]').forEach((item) => item.classList.remove('selected'));
+        button.classList.add('selected');
+        const lang = button.dataset.lang;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        Object.entries(translations[lang]).forEach(([key, value]) => {
+          const node = document.querySelector(`[data-i18n="${key}"]`);
+          if (node) node.textContent = value;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

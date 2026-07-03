@@ -26,7 +26,19 @@ The current SwiftUI starter experience presents a polished Arabic dashboard for 
 - Store health alerts for low stock and best-selling products
 - Reusable visual theme tokens in `AppTheme.swift`
 
-## Requirements
+## Try without a Mac
+
+A browser-based preview is available for reviewing the current app design without Xcode or an iOS Simulator.
+
+Open this file in any browser:
+
+```text
+Preview/index.html
+```
+
+The preview includes the Arabic dashboard, theme color selection, and language selection.
+
+## Requirements for the native iOS app
 
 - macOS with Xcode 15 or newer
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
@@ -65,6 +77,9 @@ NewAPP/
 
 NewAPPTests/
   HomeViewModelTests.swift
+
+Preview/
+  index.html             Browser preview for testing without a Mac
 
 project.yml              XcodeGen project definition
 ```
