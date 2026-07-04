@@ -3,7 +3,7 @@ import Foundation
 struct HomeViewModel {
     let storeName = "محل جديد"
     let greeting = "ابدأ بإضافة بيانات محلك"
-    let title = "محلك في جيبك"
+    let title = "Caisse io"
     let subtitle = "كاشير، مخزون، تقارير، وديون في تطبيق عربي بسيط لأصحاب المحلات الصغيرة."
     let primaryActionTitle = "فاتورة جديدة"
     let secondaryActionTitle = "مسح باركود"

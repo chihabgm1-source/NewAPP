@@ -1,6 +1,6 @@
-# NewAPP
+# Caisse io
 
-NewAPP is an Arabic-first iOS app for small shop owners who want to run daily sales, inventory, reports, and customer debts from their phone without a computer or complicated setup.
+Caisse io is an Arabic-first iOS app for small shop owners who want to run daily sales, inventory, reports, and customer debts from their phone without a computer or complicated setup.
 
 ## Product direction
 
@@ -47,7 +47,7 @@ The preview now behaves like a small local app on the phone and can be installed
 1. Open the preview link in Safari.
 2. Tap the Share button.
 3. Choose **Add to Home Screen**.
-4. Open **NewAPP** from the iPhone home screen.
+4. Open **Caisse io** from the iPhone home screen.
 
 The installed web app stores its data locally on that iPhone browser profile.
 

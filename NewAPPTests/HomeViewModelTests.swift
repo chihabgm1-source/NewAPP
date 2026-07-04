@@ -6,7 +6,7 @@ final class HomeViewModelTests: XCTestCase {
         let viewModel = HomeViewModel()
 
         XCTAssertEqual(viewModel.storeName, "محل جديد")
-        XCTAssertEqual(viewModel.title, "محلك في جيبك")
+        XCTAssertEqual(viewModel.title, "Caisse io")
         XCTAssertFalse(viewModel.subtitle.isEmpty)
         XCTAssertEqual(viewModel.primaryActionTitle, "فاتورة جديدة")
         XCTAssertEqual(viewModel.secondaryActionTitle, "مسح باركود")

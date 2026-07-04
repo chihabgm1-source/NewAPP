@@ -1,7 +1,7 @@
 {
-  "name": "NewAPP",
-  "short_name": "NewAPP",
-  "description": "Arabic shop management app preview",
+  "name": "Caisse io",
+  "short_name": "Caisse io",
+  "description": "Caisse io shop management app preview",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./index.html",

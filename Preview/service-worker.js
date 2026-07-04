@@ -1,4 +1,4 @@
-const CACHE_NAME = "newapp-preview-v1";
+const CACHE_NAME = "caisse-io-preview-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
