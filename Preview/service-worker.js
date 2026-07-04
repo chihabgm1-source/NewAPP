@@ -1,6 +1,7 @@
 const CACHE_NAME = "caisse-io-preview-v2";
 const APP_SHELL = [
   "./",
+  "./install.html",
   "./index.html",
   "./manifest.webmanifest",
   "./icons/icon-180.png",

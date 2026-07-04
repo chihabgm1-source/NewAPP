@@ -40,6 +40,12 @@ Open this file in any browser:
 Preview/index.html
 ```
 
+For mobile installation instructions, open:
+
+```text
+Preview/install.html
+```
+
 The preview now behaves like a small local app on the phone and can be installed on iPhone as a PWA.
 
 ### Install on iPhone
@@ -102,6 +108,7 @@ NewAPPTests/
   HomeViewModelTests.swift
 
 Preview/
+  install.html           Mobile install landing page for iPhone and Android
   index.html             Browser preview for testing without a Mac
   manifest.webmanifest   PWA install metadata
   service-worker.js      Offline app shell cache
