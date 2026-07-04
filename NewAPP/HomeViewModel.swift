@@ -1,0 +1,114 @@
+import Foundation
+
+struct HomeViewModel {
+    let storeName = "محل جديد"
+    let greeting = "ابدأ بإضافة بيانات محلك"
+    let title = "Caisse io"
+    let subtitle = "كاشير، مخزون، تقارير، وديون في تطبيق عربي بسيط لأصحاب المحلات الصغيرة."
+    let primaryActionTitle = "فاتورة جديدة"
+    let secondaryActionTitle = "مسح باركود"
+    let dailySummary = DailySummary(revenue: "0 دج", bestSeller: "لا يوجد", pendingDebts: "0")
+    let metrics = [
+        SummaryMetric(title: "مبيعات اليوم", value: "0 دج", footnote: "تُحسب بعد أول فاتورة", iconName: "banknote", tintName: "green"),
+        SummaryMetric(title: "الفواتير", value: "0", footnote: "لا توجد فواتير بعد", iconName: "receipt", tintName: "blue"),
+        SummaryMetric(title: "ديون معلقة", value: "0", footnote: "لا توجد ديون بعد", iconName: "person.crop.circle.badge.clock", tintName: "purple")
+    ]
+    let quickActions = [
+        QuickAction(title: "بيع سريع", subtitle: "افتح الكاشير", iconName: "cart.badge.plus", tintName: "blue"),
+        QuickAction(title: "منتج جديد", subtitle: "صورة وسعر", iconName: "plus.app", tintName: "green"),
+        QuickAction(title: "مسح باركود", subtitle: "بالكاميرا", iconName: "barcode.viewfinder", tintName: "orange"),
+        QuickAction(title: "دين جديد", subtitle: "سجل زبون", iconName: "creditcard", tintName: "purple")
+    ]
+    let themeOptions = [
+        ThemeOption(name: "فاتح", description: "واجهة واضحة للنهار", tintName: "blue", isSelected: true),
+        ThemeOption(name: "داكن", description: "واجهة مريحة في الليل", tintName: "purple", isSelected: false)
+    ]
+    let languageOptions = [
+        LanguageOption(name: "العربية", code: "AR", description: "اللغة الافتراضية", isSelected: true),
+        LanguageOption(name: "English", code: "EN", description: "واجهة إنجليزية", isSelected: false),
+        LanguageOption(name: "Français", code: "FR", description: "واجهة فرنسية", isSelected: false)
+    ]
+    let healthItems: [StoreHealthItem] = []
+    let features = [
+        AppFeature(
+            title: "كاشير سريع",
+            description: "أضف المنتجات بصورة وسعر وأنشئ الفاتورة خلال ثوانٍ.",
+            iconName: "receipt",
+            tintName: "blue"
+        ),
+        AppFeature(
+            title: "تتبع المخزون",
+            description: "تنبيهات عند انخفاض الكمية ومسح باركود بالكاميرا.",
+            iconName: "shippingbox",
+            tintName: "orange"
+        ),
+        AppFeature(
+            title: "تقارير يومية",
+            description: "اعرف ربح اليوم، أكثر منتج مبيعاً، وملخص الأسبوع أو الشهر.",
+            iconName: "chart.bar.xaxis",
+            tintName: "green"
+        ),
+        AppFeature(
+            title: "متابعة الديون",
+            description: "سجل الزبائن الذين يشترون بالدين وتذكير بمواعيد السداد.",
+            iconName: "creditcard",
+            tintName: "purple"
+        )
+    ]
+}
+
+struct DailySummary {
+    let revenue: String
+    let bestSeller: String
+    let pendingDebts: String
+}
+
+struct SummaryMetric: Identifiable {
+    let id = UUID()
+    let title: String
+    let value: String
+    let footnote: String
+    let iconName: String
+    let tintName: String
+}
+
+struct QuickAction: Identifiable {
+    let id = UUID()
+    let title: String
+    let subtitle: String
+    let iconName: String
+    let tintName: String
+}
+
+struct StoreHealthItem: Identifiable {
+    let id = UUID()
+    let title: String
+    let value: String
+    let status: String
+    let iconName: String
+    let tintName: String
+}
+
+struct ThemeOption: Identifiable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let tintName: String
+    let isSelected: Bool
+}
+
+struct LanguageOption: Identifiable {
+    let id = UUID()
+    let name: String
+    let code: String
+    let description: String
+    let isSelected: Bool
+}
+
+struct AppFeature: Identifiable {
+    let id = UUID()
+    let title: String
+    let description: String
+    let iconName: String
+    let tintName: String
+}
